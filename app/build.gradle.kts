@@ -4,7 +4,6 @@ plugins {
     checkstyle
     id("org.sonarqube") version "6.2.0.5505"
     id("com.github.johnrengelman.shadow") version "8.1.1"
-
 }
 
 group = "hexlet.code"
@@ -19,12 +18,17 @@ application {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    implementation("org.projectlombok:lombok:1.18.38")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     // https://mvnrepository.com/artifact/io.javalin/javalin
     implementation("io.javalin:javalin:6.7.0")
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     implementation("org.slf4j:slf4j-simple:2.0.17")
+    implementation("com.zaxxer:HikariCP:6.3.0")
+    // https://mvnrepository.com/artifact/com.h2database/h2
+    implementation("com.h2database:h2:2.3.232")
 }
 
 sonar {
