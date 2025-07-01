@@ -3,6 +3,7 @@ package hexlet.code;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 //import hexlet.code.repository.BaseRepository;
+import hexlet.code.dto.IndexPage;
 import io.javalin.Javalin;
 
 import java.io.BufferedReader;
@@ -11,6 +12,14 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
+
+import gg.jte.ContentType;
+import gg.jte.TemplateEngine;
+import io.javalin.rendering.template.JavalinJte;
+import gg.jte.resolve.ResourceCodeResolver;
+//import org.h2.index.Index;
+
+import static io.javalin.rendering.template.TemplateUtil.model;
 
 public class App {
     private static final String DEFAULT_PORT = "7070";
@@ -32,6 +41,13 @@ public class App {
         }
     }
 
+    private static TemplateEngine createTemplateEngine() {
+        ClassLoader classLoader = App.class.getClassLoader();
+        ResourceCodeResolver codeResolver = new ResourceCodeResolver("templates", classLoader);
+        TemplateEngine templateEngine = TemplateEngine.create(codeResolver, ContentType.Html);
+        return templateEngine;
+    }
+
     public static Javalin getApp() throws IOException, SQLException {
         var hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl(getJdbcConfig());
@@ -50,8 +66,13 @@ public class App {
 
         var app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
+            config.fileRenderer(new JavalinJte(createTemplateEngine()));
         });
-        app.get("/", ctx -> ctx.result("Hello World"));
+        app.get("/", ctx -> {
+            String message = "Hello, World!";
+            var page = new IndexPage(message);
+            ctx.render("index.jte", model("page", page));
+        });
         return app;
     }
 
