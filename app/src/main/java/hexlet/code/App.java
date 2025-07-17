@@ -3,7 +3,10 @@ package hexlet.code;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 //import hexlet.code.repository.BaseRepository;
+import hexlet.code.controllers.UrlController;
 import hexlet.code.dto.IndexPage;
+import hexlet.code.repository.UrlRepository;
+import hexlet.code.utils.NamedRoutes;
 import io.javalin.Javalin;
 
 import java.io.BufferedReader;
@@ -19,7 +22,11 @@ import io.javalin.rendering.template.JavalinJte;
 import gg.jte.resolve.ResourceCodeResolver;
 //import org.h2.index.Index;
 
-import static io.javalin.rendering.template.TemplateUtil.model;
+//import static io.javalin.rendering.template.TemplateUtil.model;
+
+import hexlet.code.controllers.UrlController;
+
+import hexlet.code.utils.NamedRoutes;
 
 public class App {
     private static final String DEFAULT_PORT = "7070";
@@ -62,17 +69,17 @@ public class App {
             statement.execute(sql);
         }
 
-//        BaseRepository.setDataSource(dataSource) ;
+        UrlRepository.setDataSource(dataSource) ;
 
         var app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
             config.fileRenderer(new JavalinJte(createTemplateEngine()));
         });
-        app.get("/", ctx -> {
-            String message = "Hello, World!";
-            var page = new IndexPage(message);
-            ctx.render("index.jte", model("page", page));
-        });
+        app.get(NamedRoutes.rootPath(), UrlController::build);
+
+        app.get(NamedRoutes.urlsPath(), UrlController::index);
+        app.post(NamedRoutes.urlsPath(), UrlController::create);
+        app.get(NamedRoutes.urlPath("{id}"), UrlController::show);
         return app;
     }
 

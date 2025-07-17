@@ -14,12 +14,12 @@ public class Url {
     private String url;
     private Timestamp createdAt;
 
-    Url(String url, Timestamp createdAt) {
+    public Url(String url, Timestamp createdAt) {
         this.url = url;
         this.createdAt = createdAt;
     }
 
-    Url(String url) {
+    public Url(String url) {
         this.url = url;
         this.createdAt = new Timestamp(System.currentTimeMillis());
     }

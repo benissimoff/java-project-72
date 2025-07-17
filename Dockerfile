@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY /app .
 
+EXPOSE 7070
+
 RUN ["./gradlew", "clean", "build"]
 
 CMD ["./gradlew", "run"]
