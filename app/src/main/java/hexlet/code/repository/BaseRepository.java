@@ -7,5 +7,5 @@ import lombok.Setter;
 public class BaseRepository {
     @Setter
     @Getter
-    protected static HikariDataSource dataSource;
+    private static HikariDataSource dataSource;
 }

@@ -35,7 +35,8 @@ public class UrlRepository extends BaseRepository {
 
     public static Optional<Url> find(int id) throws SQLException {
         var sql = "SELECT * FROM urls WHERE id = ?";
-        try (var conn = dataSource.getConnection();
+        var localDateSource = BaseRepository.getDataSource();
+        try (var conn = localDateSource.getConnection();
              var stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             var resultSet = stmt.executeQuery();
@@ -52,7 +53,8 @@ public class UrlRepository extends BaseRepository {
 
     public static List<Url> getEntities() throws SQLException {
         var sql = "SELECT * FROM urls";
-        try (var conn = dataSource.getConnection();
+        var localDateSource = BaseRepository.getDataSource();
+        try (var conn = localDateSource.getConnection();
              var stmt = conn.prepareStatement(sql)) {
             var resultSet = stmt.executeQuery();
             var result = new ArrayList<Url>();

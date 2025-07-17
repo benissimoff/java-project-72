@@ -1,6 +1,5 @@
 package hexlet.code.controllers;
 
-import com.zaxxer.hikari.HikariDataSource;
 import hexlet.code.dto.BuildPage;
 import hexlet.code.dto.IndexPage;
 import hexlet.code.dto.UrlPage;
@@ -10,7 +9,6 @@ import io.javalin.http.Context;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -49,7 +47,7 @@ public class UrlController {
 
         // insert into db
         UrlRepository.save(url);
-
+        ctx.redirect("/");
     }
 
     public static void update(Context ctx) {
