@@ -32,6 +32,8 @@ dependencies {
     implementation("com.zaxxer:HikariCP:6.3.0")
     // https://mvnrepository.com/artifact/com.h2database/h2
     implementation("com.h2database:h2:2.3.232")
+// https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation("org.postgresql:postgresql:42.7.7")
     implementation("gg.jte:jte:3.2.1")
 }
 

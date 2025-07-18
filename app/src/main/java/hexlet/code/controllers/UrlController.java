@@ -54,9 +54,9 @@ public class UrlController {
                     + ((uriObject.getPort() > -1) ? ":" + uriObject.getPort() : "");
             System.out.println(" !!! =============== cleanUrl " + cleanUrl);
 
-            boolean checkUrl = UrlRepository.findByUrl(cleanUrl).isEmpty();
+            boolean isUrlExist = UrlRepository.findByUrl(cleanUrl).isEmpty();
 
-            if (checkUrl) {
+            if (isUrlExist) {
                 Date currentDate = new Date();
                 Timestamp timestamp = new Timestamp(currentDate.getTime());
                 Url url = new Url(cleanUrl, timestamp);
