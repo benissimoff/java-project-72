@@ -3,7 +3,11 @@
 
 @template.layout.page(
     content = @`
-        <h1>${page.getFlashMessage()}</h1>
+        @if(page.getFlash() != null)
+            <div>
+                <p>${page.getFlash()}</p>
+            </div>
+        @endif
 <%--    @if(page.getErrors() != null)--%>
 <%--        <div class="mb-3">--%>
 <%--            <ul>--%>
@@ -21,7 +25,7 @@
             <div>
                 <label>
                     URL
-                    <input type="text" name="url" value="${page.getUrl()}" />
+                    <input type="text" name="url" value="https://example.com:8080/test1231/test.php?param=laksdjf&param22=222" />
                 </label>
             </div>
             <input type="submit" value="Добавить" />

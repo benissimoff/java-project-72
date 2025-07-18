@@ -11,5 +11,10 @@
     </head>
     <body>
     ${content}
+    <div>
+        <a href="/">Main</a>
+        <br>
+        <a href="/urls">List</a>
+    </div>
     </body>
 </html>

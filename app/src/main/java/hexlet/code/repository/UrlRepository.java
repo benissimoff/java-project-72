@@ -28,12 +28,9 @@ public class UrlRepository extends BaseRepository {
                 throw new SQLException("DB have not returned an id after saving an entity");
             }
         }
-
-
-
     }
 
-    public static Optional<Url> find(int id) throws SQLException {
+    public static Optional<Url> findById(int id) throws SQLException {
         var sql = "SELECT * FROM urls WHERE id = ?";
         var localDateSource = BaseRepository.getDataSource();
         try (var conn = localDateSource.getConnection();
@@ -43,6 +40,24 @@ public class UrlRepository extends BaseRepository {
             if (resultSet.next()) {
                 var urlString = resultSet.getString("url");
                 var createdAt = resultSet.getTimestamp("created_at");
+                var url = new Url(urlString, createdAt);
+                url.setId(id);
+                return Optional.of(url);
+            }
+            return Optional.empty();
+        }
+    }
+
+    public static Optional<Url> findByUrl(String urlString) throws SQLException {
+        var sql = "SELECT * FROM urls WHERE url = ?";
+        var localDateSource = BaseRepository.getDataSource();
+        try (var conn = localDateSource.getConnection();
+             var stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, urlString);
+            var resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                var createdAt = resultSet.getTimestamp("created_at");
+                var id = resultSet.getInt("id");
                 var url = new Url(urlString, createdAt);
                 url.setId(id);
                 return Optional.of(url);

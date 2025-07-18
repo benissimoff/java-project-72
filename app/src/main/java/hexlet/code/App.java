@@ -29,7 +29,9 @@ public class App {
     }
 
     private static String getJdbcConfig() {
-        return System.getenv().getOrDefault("JDBC_DATABASE_URL", DEFAULT_JDBC_DATABASE_URL);
+        String jdbcPostgres = System.getenv().getOrDefault("JDBC_DATABASE_URL", DEFAULT_JDBC_DATABASE_URL);
+        System.out.println("!!! ================  jdbcPostgres: " + jdbcPostgres);
+        return jdbcPostgres;
     }
 
     private static String readResourceFile(String fileName) throws IOException {

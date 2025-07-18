@@ -4,7 +4,8 @@
 
 @template.layout.page(
     content = @`
-        <h1>${page.getMessage()}</h1>
+
+        <h3>Сайты</h3>
     @for(Url item : page.getUrls())
         <div>
             <p>${item.getId()} ${item.getUrl()} ${item.getCreatedAt().toString()}</p>

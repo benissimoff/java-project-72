@@ -12,7 +12,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class IndexPage {
-    private String message;
+public class IndexPage extends BasePage {
     private List<Url> urls;
 }

@@ -10,7 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UrlPage {
-    private String flashMessage;
+public class UrlPage extends BasePage {
     private Url url;
 }
