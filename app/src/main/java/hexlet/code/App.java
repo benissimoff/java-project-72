@@ -21,7 +21,7 @@ import io.javalin.Javalin;
 
 public class App {
     private static final String DEFAULT_PORT = "7070";
-    private static final String DEFAULT_JDBC_DATABASE_URL = "jdbc:h2:mem:project";
+    private static final String DEFAULT_JDBC_DATABASE_URL = "jdbc:h2:mem:project"; //;MODE=PostgreSQL";
 
     private static int getPort() {
         String port = System.getenv().getOrDefault("PORT", DEFAULT_PORT);
