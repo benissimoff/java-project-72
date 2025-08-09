@@ -10,11 +10,16 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
     </head>
     <body>
+    <header>
+        <div>
+            <nav>
+                <a href="/">Анализатор страниц</a>
+                <a href="/">Main</a>
+                <a href="/urls">List</a>
+            </nav>
+        </div>
+    </header>
     ${content}
-    <div>
-        <a href="/">Main</a>
-        <br>
-        <a href="/urls">List</a>
-    </div>
+
     </body>
 </html>

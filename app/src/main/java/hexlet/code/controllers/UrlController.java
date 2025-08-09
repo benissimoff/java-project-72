@@ -6,6 +6,7 @@ import hexlet.code.dto.UrlPage;
 import hexlet.code.model.Url;
 import hexlet.code.repository.UrlRepository;
 import io.javalin.http.Context;
+import io.javalin.http.HttpStatus;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -30,7 +31,10 @@ public class UrlController {
     public static void show(Context ctx) throws SQLException {
         int urlId = ctx.pathParamAsClass("id", Integer.class).get();
         String message = "Hello, World!";
-        Url url = UrlRepository.findById(urlId).orElseThrow();
+        Url url = UrlRepository.findById(urlId).orElse(null);
+        if (url == null) {
+            ctx.status(HttpStatus.NOT_FOUND);
+        }
         var page = new UrlPage(url);
         ctx.render("show.jte", model("page", page));
     }
@@ -54,14 +58,16 @@ public class UrlController {
                     + ((uriObject.getPort() > -1) ? ":" + uriObject.getPort() : "");
             System.out.println(" !!! =============== cleanUrl " + cleanUrl);
 
-            boolean isUrlExist = UrlRepository.findByUrl(cleanUrl).isEmpty();
+            boolean isUrlExist = UrlRepository.findByUrl(cleanUrl).isPresent();
 
-            if (isUrlExist) {
+            if (!isUrlExist) {
                 Date currentDate = new Date();
                 Timestamp timestamp = new Timestamp(currentDate.getTime());
                 Url url = new Url(cleanUrl, timestamp);
 
                 UrlRepository.save(url);
+                // Страница успешно добавлена
+                ctx.sessionAttribute("flash", "Страница успешно добавлена");
             } else {
                 ctx.sessionAttribute("flash", "Страница уже существует");
             }

@@ -3,7 +3,11 @@
 
 @template.layout.page(
 content = @`
-    <h1>${page.getFlashMessage()}</h1>
+    @if(page.getFlash() != null)
+        <div>
+            <p>${page.getFlash()}</p>
+        </div>
+    @endif
     <%--    @if(page.getErrors() != null)--%>
     <%--        <div class="mb-3">--%>
     <%--            <ul>--%>
@@ -17,7 +21,11 @@ content = @`
     <%--    @endif--%>
 
     <div>
-        <p>${page.getUrl().getId()} ${page.getUrl().getUrl()} ${page.getUrl().getCreatedAt().toString()}</p>
+        @if(page.getUrl() != null)
+            <p>${page.getUrl().getId()} ${page.getUrl().getUrl()} ${page.getUrl().getCreatedAt().toString()}</p>
+        @else
+            <p>Страница не существует</p>
+        @endif
     </div>
 
 `
